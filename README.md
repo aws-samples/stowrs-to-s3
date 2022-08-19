@@ -8,13 +8,13 @@ You will need the following software packages installed locally to deploy this s
 
 * <b>Python3/pip:</b><BR>The deployment automation code is written in Python.
   
-* <b>CDK:</b><BR>Please refer to [CDK](https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-python.html) documentation to install the framework and bootstrap your AWS environment. 
+* <b>CDK:</b><BR>Refer to [CDK](https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-python.html) documentation to install the framework and bootstrap your AWS environment. 
 
 * <b>Docker:</b><BR>When running the CDK deploy command, the container images will automatically be built (via docker build command), and sent to AWS ECR registry. Docker must be present on the machine where the cdk deployment is executed. Docker desktop is sufficient. Refer to [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) documentation to install it on your machine.
 
 * <b>Domain name and Certificate (recommended):</b><BR>The STOWRS-to-S3 web service is exposed via HTTPS. Because most STOWRS clients will verify that the certificate exposed by the web service is valid, it is recommended to have a legit FQDN and certificate to associate to the service. Domain name, related FQDN and certificates can be created vi AWS Route53 and AWS ACM. The service also support the usage of private certificate or certificates issued by other authority than ACM ( eg. Let's Encrypt Certbot ) . Alternatively the service can also be configured to fetch any kind of certificate from S3.
 
-<b>Note:</b> 08/03/2022 - Docker Desktop 4.11.0 has an issue preventing the integration with CDK. prefer Docker Desktop 4.10.0
+<b>Note:</b> 08/03/2022 - Docker Desktop 4.11.0 has an issue preventing the integration with CDK. Prefer Docker Desktop 4.10.0
 
 
 ## Project content
