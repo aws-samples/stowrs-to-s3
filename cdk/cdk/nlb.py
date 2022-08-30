@@ -20,10 +20,10 @@ class StowNLB(Construct):
         if (certificate_config["certificate_mode"].upper() == "ACM"):
             certificate_arn = certificate_config["certificate_arn"]
             listener = lb.add_listener(id="TCPListener" , port=443 ,ssl_policy=elbv2.SslPolicy.RECOMMENDED , protocol=elbv2.Protocol.TLS , certificates= [elbv2.ListenerCertificate(certificate_arn)])
-            self._tg = elbv2.NetworkTargetGroup(self,"tg-stowrstos3",target_type=elbv2.TargetType.IP,port=443,vpc=vpc, protocol= elbv2.Protocol.TLS)
+            self._tg = elbv2.NetworkTargetGroup(self,"tg-stowrstos3",target_type=elbv2.TargetType.IP,port=443,vpc=vpc, protocol= elbv2.Protocol.TLS , preserve_client_ip=True)
         else:
             listener = lb.add_listener(id="TCPListener" , port=443)
-            self._tg = elbv2.NetworkTargetGroup(self,"tg-stowrstos3",target_type=elbv2.TargetType.IP,port=443,vpc=vpc, protocol= elbv2.Protocol.TCP)
+            self._tg = elbv2.NetworkTargetGroup(self,"tg-stowrstos3",target_type=elbv2.TargetType.IP,port=443,vpc=vpc, protocol= elbv2.Protocol.TCP, preserve_client_ip=True)
         
         
         listener.add_target_groups("tg",self._tg)

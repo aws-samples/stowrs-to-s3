@@ -30,12 +30,12 @@ class FargateService(Construct):
         
         security_grp = ec2.SecurityGroup(self, "Task-SG" , vpc=vpc , allow_all_outbound=True, description="stowrstos3 security group." , security_group_name="stowrstos3-SG" )
 
-        #This allows everyone to connect to the endpoint from the internet.
+        #This allows the subnets in the peerlist to access to the service.
         for peer in allowed_peers["peer_list"]:
             security_grp.add_ingress_rule(peer= ec2.Peer.ipv4(peer) ,connection=ec2.Port.tcp(443) , description=f"Allows HTTPS from CIDR {peer}")
 
         #this allows the Network Load balancer private IP to health checks the nginx-container.
-        for subnet in vpc.isolated_subnets:
+        for subnet in vpc.public_subnets:
             security_grp.add_ingress_rule(peer= ec2.Peer.ipv4(subnet.ipv4_cidr_block) ,connection=ec2.Port.tcp(443) , description=f"DOT NOT DELETE - Allows NLB monitoring from IPs in subnet {subnet.ipv4_cidr_block}.")
 
         task_count = task_definition["task_count"]
